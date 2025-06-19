@@ -1,0 +1,152 @@
+<div class="space-y-8">
+    <!-- Page Header -->
+    <div class="flex justify-between items-center">
+        <div>
+            <h1 class="text-3xl font-bold text-white mb-2">Códigos ChatGPT</h1>
+            <p class="text-gray-400">Seus códigos de acesso estão listados abaixo</p>
+        </div>
+        <button 
+            onclick="location.reload()"
+            class="btn-primary text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800"
+        >
+            <i class="fas fa-sync-alt mr-2"></i>
+            Atualizar Página
+        </button>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 fade-in">
+        <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-400 text-sm mb-1">Total de Usuários</p>
+                    <h3 class="text-2xl font-bold text-white"><%= stats.totalUsers %></h3>
+                </div>
+                <div class="w-12 h-12 bg-blue-500 bg-opacity-20 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-users text-blue-400 text-xl"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-400 text-sm mb-1">Acessos Hoje</p>
+                    <h3 class="text-2xl font-bold text-white"><%= stats.todayLogins %></h3>
+                </div>
+                <div class="w-12 h-12 bg-green-500 bg-opacity-20 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-chart-line text-green-400 text-xl"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-400 text-sm mb-1">Total de Acessos</p>
+                    <h3 class="text-2xl font-bold text-white"><%= stats.totalLogins %></h3>
+                </div>
+                <div class="w-12 h-12 bg-purple-500 bg-opacity-20 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-key text-purple-400 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Codes Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in">
+        <% if (codes && codes.length > 0) { %>
+            <% codes.forEach(function(item) { %>
+                <div class="code-card rounded-xl p-6 relative group">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-robot text-white"></i>
+                            </div>
+                            <span class="text-gray-700 font-medium">Usuário ChatGPT</span>
+                        </div>
+                        <div class="opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button 
+                                onclick="window.utils.copyToClipboard('<%= item.code %>')"
+                                class="text-blue-600 hover:text-blue-700 transition-colors"
+                                title="Copiar código"
+                            >
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500 text-sm mb-1">Código:</p>
+                            <p class="text-2xl font-mono font-bold text-gray-800"><%= item.code %></p>
+                        </div>
+                        <button 
+                            onclick="window.utils.copyToClipboard('<%= item.code %>')"
+                            class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors"
+                        >
+                            Copiar Código
+                        </button>
+                    </div>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <div class="col-span-full text-center py-12">
+                <div class="w-20 h-20 bg-gray-700 bg-opacity-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-code text-gray-400 text-3xl"></i>
+                </div>
+                <h3 class="text-xl font-medium text-white mb-2">Sem códigos para exibir</h3>
+                <p class="text-gray-400">Nenhum código ChatGPT disponível no momento.</p>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<!-- Warning Modal -->
+<div id="warningModal" class="fixed inset-0 z-50 overflow-y-auto modal-backdrop flex items-center justify-center fade-in">
+    <div class="bg-white rounded-2xl max-w-lg w-full mx-4 p-8 relative">
+        <div class="absolute top-4 right-4">
+            <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="text-center">
+            <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-exclamation-triangle text-red-500 text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Importante!</h3>
+            <p class="text-gray-600 mb-6">
+                Por favor, não compre de revendedores que estão revendendo os Nossos produtos. Para sua segurança, adquira diretamente da fonte oficial.
+            </p>
+            <div class="flex justify-center space-x-4">
+                <a href="#" class="text-blue-600 hover:text-blue-700 transition-colors">
+                    Clique aqui para visitar o site oficial
+                </a>
+            </div>
+            <button 
+                onclick="closeModal()"
+                class="mt-6 w-full bg-gray-900 text-white font-semibold py-3 px-4 rounded-lg hover:bg-gray-800 transition-colors"
+            >
+                Entendi
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Show warning modal on page load
+    const modal = document.getElementById('warningModal');
+    modal.style.display = 'flex';
+});
+
+function closeModal() {
+    const modal = document.getElementById('warningModal');
+    modal.classList.add('fade-out');
+    setTimeout(() => {
+        modal.style.display = 'none';
+        modal.classList.remove('fade-out');
+    }, 300);
+}
+</script>
